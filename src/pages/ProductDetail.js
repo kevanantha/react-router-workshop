@@ -1,95 +1,50 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Layout from './Layout';
+import products from "../products";
+import Context from "../context";
+import translate from "../translate";
 
 class ProductDetail extends React.Component {
   render() {
+    const slug = this.props.match.params.slug;
+    const product = products.find(product => product.slug === slug);
     return (
-      <div className="container">
-        <nav className="navbar" aria-label="main navigation">
-          <div className="navbar-brand">
-            <a className="navbar-item" href="/">
-              <img
-                src="https://bulma.io/images/bulma-logo.png"
-                alt="Bulma: a modern CSS framework based on Flexbox"
-                width={112}
-                height={28}
-              />
-            </a>
-            <a
-              role="button"
-              className="navbar-burger"
-              aria-label="menu"
-              aria-expanded="false">
-              <span aria-hidden="true" />
-              <span aria-hidden="true" />
-              <span aria-hidden="true" />
-            </a>
-          </div>
-          <div className="navbar-end">
-            <a className="navbar-item">Home</a>
-            <div className="dropdown navbar-item ">
-              <div className="dropdown-trigger">
-                <button
-                  className="button"
-                  aria-haspopup="true"
-                  aria-controls="dropdown-menu">
-                  <span>en</span>
-                  <span className="icon is-small">
-                    <i className="fas fa-angle-down" aria-hidden="true" />
-                  </span>
-                </button>
-              </div>
-              <div className="dropdown-menu" id="dropdown-menu" role="menu">
-                <div className="dropdown-content">
-                  <a href="#" className="dropdown-item is-active">
-                    en
-                  </a>
-                  <a href="#" className="dropdown-item ">
-                    id
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
+      <Layout>
         <div className="columns">
           <div className="column is-12">
             <nav className="breadcrumb" aria-label="breadcrumbs">
               <ul>
                 <li>
-                  <a href="/">Products</a>
+                  <Link to="/">Products</Link>
                 </li>
                 <li className="is-active">
                   <a href="#" aria-current="page">
-                    Rustic Plastic Bacon
+                    {product.title}
                   </a>
                 </li>
               </ul>
             </nav>
-            <h3 className="title">Rustic Plastic Bacon</h3>
+            <h3 className="title">{product.title}</h3>
           </div>
         </div>
         <div className="columns">
           <div className="column is-5">
             <figure className="image">
-              <img
-                alt="Rustic Plastic Bacon"
-                src="https://images.nike.com/is/image/DotCom/PDP_HERO/132170C_001_A_PREM/converse-chuck-taylor-all-star-leather-unisex-high-top-shoe.jpg"
-              />
+              <img alt={product.title} src={product.imageUrl} />
             </figure>
           </div>
           <div className="column is-5">
             <div className="column has-text-weight-semibold has-text-dark is-size-4">
-              320.00
+              {product.price}
             </div>
-            <div className="column">
-              Dolorem commodi id eveniet neque amet voluptatem ipsa.
-            </div>
+            <div className="column">{product.description}</div>
             <div className="column">
               <a className="button is-primary is-uppercase">Add to Cart</a>
             </div>
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 }
